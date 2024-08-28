@@ -1,11 +1,16 @@
 [package]
-authors = ["Gavin J Stark"]
-categories = ["wasm", "graphics", "rendering"]
-description = "A WASM interface to the geo-nd library"
-edition = "2021"
 name = "geo-nd-wasm"
-readme = "README.md"
 version = "0.1.0"
+edition = "2021"
+readme = "README.md"
+authors = ["Gavin J Stark"]
+description = "A WASM interface to the geo-nd library"
+homepage = "https://github.com/atthecodeface/geo-nd-wasm"
+documentation = "https://docs.rs/geo-nd"
+keywords = ["geometry", "gamedev", "vector", "quaternion", "simd"]
+categories = ["wasm", "graphics", "rendering"]
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/atthecodeface/geo-nd-wasm"
 
 [dependencies.wasm-bindgen]
 version = ">=0.2.92"
