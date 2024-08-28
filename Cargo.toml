@@ -1,0 +1,21 @@
+[package]
+authors = ["Gavin J Stark"]
+categories = ["wasm", "graphics", "rendering"]
+description = "A WASM interface to the geo-nd library"
+edition = "2021"
+name = "geo-nd-wasm"
+readme = "README.md"
+version = "0.1.0"
+
+[dependencies.wasm-bindgen]
+version = ">=0.2.92"
+
+[dependencies.geo-nd]
+version = ">=0.5"
+
+[dependencies.web-sys]
+features = [
+  'console',
+]
+version = ">=0.3.40"
+
