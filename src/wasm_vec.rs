@@ -8,19 +8,6 @@ macro_rules! wasm_vec {
 
         #[wasm_bindgen]
         impl $t {
-            //cp new
-            /// Create a new
-            #[wasm_bindgen(constructor)]
-            pub fn new(x: $f, y: $f, z: $f) -> $t {
-                Self([x, y, z].into())
-            }
-
-            #[wasm_bindgen(getter)]
-            pub fn array(&self) -> Box<[$f]> {
-                let v: [$f; 3] = self.0.into();
-                v.into()
-            }
-
             #[wasm_bindgen(getter)]
             pub fn is_zero(&self) -> bool {
                 self.0.is_zero()
@@ -72,9 +59,6 @@ macro_rules! wasm_vec {
                 self.0.mix(&other.0, t).into()
             }
 
-            pub fn cross_product(&self, other: &$t) -> $t {
-                self.0.cross_product(&other.0).into()
-            }
             //zz All done
         }
 
@@ -94,9 +78,93 @@ macro_rules! wasm_vec {
                 f.0
             }
         }
+    };
+}
+
+#[macro_export]
+macro_rules! wasm_vec2 {
+    ($t:ident, $v:ident, $f:ty) => {
+        #[wasm_bindgen]
+        impl $t {
+            //cp new
+            /// Create a new
+            #[wasm_bindgen(constructor)]
+            pub fn new(x: $f, y: $f) -> $t {
+                Self([x, y].into())
+            }
+
+            #[wasm_bindgen(getter)]
+            pub fn array(&self) -> Box<[$f]> {
+                let v: [$f; 2] = self.0.into();
+                v.into()
+            }
+
+            //zz All done
+        }
+
+        impl From<[$f; 2]> for $t {
+            fn from(f: [$f; 2]) -> $t {
+                $t(f.into())
+            }
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! wasm_vec3 {
+    ($t:ident, $v:ident, $f:ty) => {
+        #[wasm_bindgen]
+        impl $t {
+            //cp new
+            /// Create a new
+            #[wasm_bindgen(constructor)]
+            pub fn new(x: $f, y: $f, z: $f) -> $t {
+                Self([x, y, z].into())
+            }
+
+            #[wasm_bindgen(getter)]
+            pub fn array(&self) -> Box<[$f]> {
+                let v: [$f; 3] = self.0.into();
+                v.into()
+            }
+
+            pub fn cross_product(&self, other: &$t) -> $t {
+                self.0.cross_product(&other.0).into()
+            }
+            //zz All done
+        }
 
         impl From<[$f; 3]> for $t {
             fn from(f: [$f; 3]) -> $t {
+                $t(f.into())
+            }
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! wasm_vec4 {
+    ($t:ident, $v:ident, $f:ty) => {
+        #[wasm_bindgen]
+        impl $t {
+            //cp new
+            /// Create a new
+            #[wasm_bindgen(constructor)]
+            pub fn new(x: $f, y: $f, z: $f, w: $f) -> $t {
+                Self([x, y, z, w].into())
+            }
+
+            #[wasm_bindgen(getter)]
+            pub fn array(&self) -> Box<[$f]> {
+                let v: [$f; 4] = self.0.into();
+                v.into()
+            }
+
+            //zz All done
+        }
+
+        impl From<[$f; 4]> for $t {
+            fn from(f: [$f; 4]) -> $t {
                 $t(f.into())
             }
         }

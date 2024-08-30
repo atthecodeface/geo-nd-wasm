@@ -2,7 +2,7 @@
 
 #[macro_export]
 macro_rules! wasm_quat {
-    ($t:ident, $q:ident, $v:ident, $f:ty) => {
+    ($t:ident, $q:ident, $v:ident, $m3:ident, $m4:ident, $f:ty) => {
         #[wasm_bindgen]
         pub struct $t($q);
 
@@ -118,6 +118,14 @@ macro_rules! wasm_quat {
             }
             pub fn apply3(&self, v: &$v) -> $v {
                 self.0.apply3(&v.0).into()
+            }
+
+            pub fn set_rotation3(&self, m: &mut $m3) {
+                self.0.set_rotation3(m.as_mut())
+            }
+
+            pub fn set_rotation4(&self, m: &mut $m4) {
+                self.0.set_rotation4(m.as_mut())
             }
 
             //zz All done
