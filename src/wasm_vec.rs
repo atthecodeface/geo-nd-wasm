@@ -2,7 +2,7 @@
 
 #[macro_export]
 macro_rules! wasm_vec {
-    ($t:ident, $v:ident, $f:ty) => {
+    ($t:ident, $v:ident, $n:expr, $f:ty) => {
         #[wasm_bindgen]
         pub struct $t($v);
 
@@ -59,6 +59,19 @@ macro_rules! wasm_vec {
                 self.0.mix(&other.0, t).into()
             }
 
+            pub fn set(&mut self, array: &[$f]) {
+                if array.len() < $n {
+                    return;
+                }
+                AsMut::<[$f; $n]>::as_mut(&mut self.0).copy_from_slice(array);
+            }
+
+            #[wasm_bindgen(getter)]
+            pub fn array(&self) -> Box<[$f]> {
+                let v: [$f; $n] = self.0.into();
+                v.into()
+            }
+
             //zz All done
         }
 
@@ -78,6 +91,11 @@ macro_rules! wasm_vec {
                 f.0
             }
         }
+        impl From<[$f; $n]> for $t {
+            fn from(f: [$f; $n]) -> $t {
+                $t(f.into())
+            }
+        }
     };
 }
 
@@ -93,19 +111,7 @@ macro_rules! wasm_vec2 {
                 Self([x, y].into())
             }
 
-            #[wasm_bindgen(getter)]
-            pub fn array(&self) -> Box<[$f]> {
-                let v: [$f; 2] = self.0.into();
-                v.into()
-            }
-
             //zz All done
-        }
-
-        impl From<[$f; 2]> for $t {
-            fn from(f: [$f; 2]) -> $t {
-                $t(f.into())
-            }
         }
     };
 }
@@ -122,22 +128,10 @@ macro_rules! wasm_vec3 {
                 Self([x, y, z].into())
             }
 
-            #[wasm_bindgen(getter)]
-            pub fn array(&self) -> Box<[$f]> {
-                let v: [$f; 3] = self.0.into();
-                v.into()
-            }
-
             pub fn cross_product(&self, other: &$t) -> $t {
                 self.0.cross_product(&other.0).into()
             }
             //zz All done
-        }
-
-        impl From<[$f; 3]> for $t {
-            fn from(f: [$f; 3]) -> $t {
-                $t(f.into())
-            }
         }
     };
 }
@@ -154,19 +148,7 @@ macro_rules! wasm_vec4 {
                 Self([x, y, z, w].into())
             }
 
-            #[wasm_bindgen(getter)]
-            pub fn array(&self) -> Box<[$f]> {
-                let v: [$f; 4] = self.0.into();
-                v.into()
-            }
-
             //zz All done
-        }
-
-        impl From<[$f; 4]> for $t {
-            fn from(f: [$f; 4]) -> $t {
-                $t(f.into())
-            }
         }
     };
 }

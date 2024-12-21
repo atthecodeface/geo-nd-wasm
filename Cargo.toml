@@ -1,6 +1,6 @@
 [package]
 name = "geo-nd-wasm"
-version = "0.1.0"
+version = "0.1.2"
 edition = "2021"
 readme = "README.md"
 authors = ["Gavin J Stark"]
@@ -16,7 +16,7 @@ repository = "https://github.com/atthecodeface/geo-nd-wasm"
 version = ">=0.2.92"
 
 [dependencies.geo-nd]
-version = ">=0.5"
+version = ">=0.5.2"
 
 [dependencies.web-sys]
 features = [

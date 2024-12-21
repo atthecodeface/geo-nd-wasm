@@ -1,4 +1,8 @@
-# Release 0.1.1 (In progress)
+# Release 0.1.2
+
+- Add From<[]> implementations for Vec2/3/4 and set method
+
+# Release 0.1.1
 
 - Add Vec2 versions
 

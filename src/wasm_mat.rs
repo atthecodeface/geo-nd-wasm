@@ -12,6 +12,14 @@ macro_rules! wasm_mat {
                 $m::identity().into()
             }
 
+            pub fn from_array(f: &[$f]) -> $t {
+                let mut m = $m::default();
+                for (i, f) in f.iter().enumerate() {
+                    m[i] = *f;
+                }
+                m.into()
+            }
+
             #[wasm_bindgen(getter)]
             pub fn is_zero(&self) -> bool {
                 self.0.is_zero()
